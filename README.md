@@ -4,7 +4,7 @@ This plugin extends Ionic framework V1's ion-slide-box with selectable tabs. Bas
 
 ## Installing ionSlideBoxTabs
 
-1. Add the *ionSlideBoxTabs.js* to your Ionic Project and include it in your *index.html*.
+1. Add the *ionSlideBoxTabs.js* and the *ionSlideBoxTabs.css*to your Ionic Project and include it in your *index.html*.
 
   ```html
   <script src="app/ionSlideBoxTabs/slidingTabsDirective.js"></script>

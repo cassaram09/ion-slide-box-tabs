@@ -1,9 +1,9 @@
-ionSlideBoxTabs = angular.module('ion-slide-box-tabs', []);
+ionSlideBoxTabsModule = angular.module('ion-slide-box-tabs', []);
 
 function ionSlideBoxTabs(){
   return {
     restrict: 'E',
-    templateUrl: [
+    template: [
       '<div class="slide-tabs">',
         '<ul class="slide-tab-list">',
           '<li ng-click="selectTab($index)" class="label" ng-repeat="tab in tabs track by $index">',
@@ -51,14 +51,14 @@ function ionSlideBoxTabs(){
         var slide = angular.element(".slider-slide:nth-child(" + index + ")" )
         var leftOffset = slide.offset().left
         var width = slide.width()
-        var positon = (Math.abs(leftOffset) / width) * 100;
+        var position = (Math.abs(leftOffset) / width) * 100;
         
-        if ( positon > index * 100) {
+        if ( position > index * 100) {
           return
         }
 
         if ( gesture == 'right') {
-          position = ( (index - 1) * 100 ) - pos
+          position = ( (index - 1) * 100 ) - position
           indicator.css("transform", "translate("+ position + "%" + ",0%)")
         } else {
           position = position + ( (index - 1) * 100)
@@ -91,12 +91,11 @@ function ionSlideBoxTabs(){
     
     }
   }
+
 }
 
-angular
-  .module("ionic")
+ionSlideBoxTabsModule
   .directive('ionSlideBoxTabs', ionSlideBoxTabs)
-
 
 function slideTabLabel(){
   return {
@@ -106,6 +105,5 @@ function slideTabLabel(){
   }
 }
 
-angular
-  .module("ionic")
+ionSlideBoxTabsModule
   .directive('slideTabLabel', slideTabLabel)
