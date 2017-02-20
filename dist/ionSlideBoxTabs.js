@@ -1,37 +1,36 @@
 ionSlideBoxTabs = angular.module('ion-slide-box-tabs', []);
 
-function ionSlideBoxTabs($ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicGesture){
+function ionSlideBoxTabs(){
   return {
     restrict: 'E',
-    templateUrl: 'app/slideTabs/slideTabs.html',
+    templateUrl: [
+      '<div class="slide-tabs">',
+        '<ul class="slide-tab-list">',
+          '<li ng-click="selectTab($index)" class="label" ng-repeat="tab in tabs track by $index">',
+            '<div ng-bind="tab"></div>',
+          '</li>',
+        '</ul>',
+        '<div class="indicator-wrapper">',
+          '<div id="slide-tab-indicator"></div>',
+        '</div>',
+        '<div id="slide-box-content" ng-transclude on-drag-right="onGesture(\'right\')" on-drag-left="onGesture(\'left\')" on-release="snapToPosition()"></div>',
+      '</div>'
+    ].join(''),
     transclude: true,
     controller: function($scope, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicGesture) {
 
-      var _this = $scope;
-
-      _this.slideIndex = 0;  
-      _this.tabs = [];
+      $scope.tabs = [];
 
       var indicator = angular.element('#slide-tab-indicator')
+      var transclude = angular.element('#slide-box-content')
+      transclude.css("height", '90%')
 
-      function moveIndicator(index) {
-        var position = (index * 100) + "%"
-        indicator.css("transform", "translate("+ position + ",0%)")
-      }
-
-      function scrollTopAndResize() {
-        $ionicScrollDelegate.scrollTop(true);
-         $timeout( function() {
-          $ionicScrollDelegate.resize();
-        }, 50);
-      }
-
-      _this.snapToPosition = function(){
+      $scope.snapToPosition = function(){
         var index = $ionicSlideBoxDelegate.currentIndex();
-        slideToPosition(index)
+        moveIndicator(index)
       }
 
-      _this.selectTab = function(index) {
+      $scope.selectTab = function(index) {
         scrollTopAndResize()
         $ionicSlideBoxDelegate.slide(index)
         moveIndicator(index)
@@ -50,41 +49,46 @@ function ionSlideBoxTabs($ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicGes
         }
 
         var slide = angular.element(".slider-slide:nth-child(" + index + ")" )
-        var left = slide.offset().left
+        var leftOffset = slide.offset().left
         var width = slide.width()
-        var pos = (Math.abs(left) / width) * 100;
+        var positon = (Math.abs(leftOffset) / width) * 100;
         
-        if ( pos > index * 100) {
+        if ( positon > index * 100) {
           return
         }
 
         if ( gesture == 'right') {
-          pos = ((index - 1) * 100) - pos
-          indicator.css("transform", "translate("+ pos + "%" + ",0%)")
+          position = ( (index - 1) * 100 ) - pos
+          indicator.css("transform", "translate("+ position + "%" + ",0%)")
         } else {
-          pos = pos + ( (index - 1) * 100)
-          indicator.css("transform", "translate("+ pos + "%" + ",0%)")
+          position = position + ( (index - 1) * 100)
+          indicator.css("transform", "translate("+ position + "%" + ",0%)")
         }
         return true;
       }
 
-      _this.onGesture = function(gesture) {
+      $scope.onGesture = function(gesture) {
         move(gesture)
       }
-    
-    },
-    compile: function(element, attributes){ 
-      return {
-         post: function(scope, element, attributes, controller, transcludeFn){
-          $( document ).ready(function() {
-            var height = $(window).height() - 130 - 65;
-            var width = 100 / scope.tabs.length
-            $('li.label').css('width', width +  "%")
-            $('#slide-tab-indicator').css('width', width +  "%")
-            $('#slide-box-content').css("height", '90%')
-          });   
-        }
+
+      function moveIndicator(index) {
+        var position = (index * 100) + "%"
+        indicator.css("transform", "translate("+ position + ",0%)")
       }
+
+      function scrollTopAndResize() {
+        $ionicScrollDelegate.scrollTop(true);
+         $timeout( function() {
+          $ionicScrollDelegate.resize();
+        }, 50);
+      }
+
+      angular.element(document).ready(function () {
+        var width = 100 / $scope.tabs.length
+        angular.element('li.label').css('width', width +  "%")
+        indicator.css('width', width +  "%")
+      });
+    
     }
   }
 }
