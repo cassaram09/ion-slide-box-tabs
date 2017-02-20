@@ -16,11 +16,12 @@ This plugin extends Ionic framework V1's ion-slide-box with selectable tabs. Bas
 
 Add the *ion-slide-blox-tabs* Rlement as a wrapper around the *ion-slide-box* Element.
 To name the Tabs use the Attribute *slide-tab-label="yourLabel"* to the slides of the Slidebox.
+Be sure to add the $emit() function to the *ion-slide-box* element. 
 
 ```html
 <ion-content>
   <ion-slide-blox-tabs>
-    <ion-slide-box show-pager="false">
+    <ion-slide-box show-pager="false" on-slide-changed="$emit('slideChanged')">
         <ion-slide slide-tab-label="One"><h1>Tab 1</h1></ion-slide>
         <ion-slide slide-tab-label="Two"><h1>Tab 2</h1></ion-slide>
         <ion-slide slide-tab-label="Three"><h1>Tab 3</h1></ion-slide>
