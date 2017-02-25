@@ -32,13 +32,19 @@ Add the *on-slide-changed="$emit('slideChanged')"* attribute to the *ion-slide-b
 
 ```html
 <ion-content>
+
   <ion-slide-box-tabs>
+
     <ion-slide-box show-pager="false" on-slide-changed="$emit('slideChanged')">
+
         <ion-slide slide-tab-label="One"><h1>Tab 1</h1></ion-slide>
         <ion-slide slide-tab-label="Two"><h1>Tab 2</h1></ion-slide>
         <ion-slide slide-tab-label="Three"><h1>Tab 3</h1></ion-slide>
+        
     </ion-slide-box>
-  <ion-slide-box-tabs>
+
+  </ion-slide-box-tabs>
+
 </ion-content>
 ```
 
