@@ -24,14 +24,13 @@ function ionSlideBoxTabs(){
       $scope.slideHeights = {}
       $scope.currentSlideIndex = 0;
       $scope.indicator = angular.element('#slide-tab-indicator')
-      $scope.transclude = angular.element('#slide-box-content')
 
+      $scope.transclude = angular.element('#slide-box-content')
       $scope.transclude.css("height", '90%')
-      $scope.minSlideHeight = getMinSlideHeight();
 
       $scope.$on('slideChanged', function() {
         var index = $ionicSlideBoxDelegate.currentIndex();
-        scrollTopAndResize()
+        scrollTopAndResize(index)
         moveIndicator(index)
       });
 
@@ -58,9 +57,10 @@ function ionSlideBoxTabs(){
           // runs on the first move of the slider - collects all slide heights
           var slides = angular.element('ion-slide').length
           $scope.slidesContainer = angular.element('.slider-slides')
+          var minSlideHeight = getMinSlideHeight();
           for ( var i = 0; i < slides; i++) {
             var slideHeight = angular.element("[slide-tab-label='" + $scope.tabs[i] + "']").height() 
-            var height = Math.max(slideHeight, $scope.minSlidHeight);
+            var height = Math.max(slideHeight, minSlideHeight);
             $scope.slideHeights[i] = height
           }
           return $scope.slideHeights[index]
@@ -112,7 +112,6 @@ function ionSlideBoxTabs(){
     
     }
   }
-
 }
 
 ionSlideBoxTabsModule
