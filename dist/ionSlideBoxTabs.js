@@ -7,7 +7,9 @@ function ionSlideBoxTabs(){
       '<div class="slide-tabs">',
         '<ul class="slide-tab-list">',
           '<li ng-click="selectTab($index)" class="label" ng-repeat="tab in tabs track by $index" ng-style="tabWidth">',
-            '<div><span ng-bind="tab"></span></div>',
+            '<div>',
+              '<span ng-class="$index == activeSlide ? \'selected-tab\' : \'\'" ng-bind="tab"></span>',
+            '</div>',
           '</li>',
         '</ul>',
         '<div class="indicator-wrapper">',
@@ -22,9 +24,9 @@ function ionSlideBoxTabs(){
       $scope.tabs = []
       $scope.tabWidth = {"width": '0%'}
       $scope.slideHeights = {}
-      $scope.currentSlideIndex = 0
       $scope.indicator = angular.element('#slide-tab-indicator')
       $scope.transclude = angular.element('#slide-box-content')
+      $scope.activeSlide = 0;
 
       //set slider content box height
       $scope.transclude.css("height", '90%')
@@ -33,6 +35,7 @@ function ionSlideBoxTabs(){
         var index = $ionicSlideBoxDelegate.currentIndex()
         moveIndicator(index)
         scrollTopAndResize(index)
+        $scope.activeSlide = index;
       })
 
       $scope.snapToPosition = function(){
@@ -44,6 +47,7 @@ function ionSlideBoxTabs(){
         $ionicSlideBoxDelegate.slide(index)
         moveIndicator(index)
         scrollTopAndResize(index)
+        $scope.activeSlide = index;
       }
 
       $scope.onGesture = function(gesture) {
@@ -81,7 +85,7 @@ function ionSlideBoxTabs(){
 
         $scope.indicator.css("transform", "translate("+ position + "%" + ",0%)")
       }
-      
+
       function moveIndicator(index) {
         var position = (index * 100) + "%"
         $scope.indicator.css("transform", "translate("+ position + ",0%)")
@@ -97,8 +101,7 @@ function ionSlideBoxTabs(){
         var tabHeight = angular.element("ion-tab").height()
         var windowHeight = angular.element(window).height()
         var topOffset = $scope.transclude.offset().top
-        var height = ( windowHeight - topOffset - tabHeight )
-        return height
+        return ( windowHeight - topOffset - tabHeight )
       }
     
     }
