@@ -8,7 +8,7 @@ I kept the styling simple so feel free to modify the CSS / SCSS as necessary for
 
 ## Installation
 
-1. Add *ionSlideBoxTabs.js* to your Ionic Project and include it in your *index.html*.
+1. Add *ionSlideBoxTabs.js* to your Ionic Project and include it in your *index.html*, eg:
 
   ```html
   <script src="app/ionSlideBoxTabs/slidingTabsDirective.js"></script>
@@ -16,11 +16,11 @@ I kept the styling simple so feel free to modify the CSS / SCSS as necessary for
 
 2. Register the *ion-slide-box-tabs* module with your app:
 
-  ```html
+  ```
   angular.module('app', ['ionic', 'ion-slide-box-tabs'])
   ```
 
-3. Add the CSS in *ionSlideBoxTabs.css* or SCSS in *ionSlideBoxTabs.scss* to your project's scss file.
+3. Add *ionSlideBoxTabs.css* or *ionSlideBoxTabs.scss* to your project CSS or SCSS stylesheet.
 
 ## Usage
 

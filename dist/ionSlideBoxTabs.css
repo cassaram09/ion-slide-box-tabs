@@ -20,5 +20,7 @@
       display: inline-block;
       padding: 15px 0px 12px;
       color: #555; }
+    .slide-tabs .slide-tab-list .selected-tab {
+      font-weight: 700; }
   .slide-tabs #slide-box-content .slider {
     min-height: 100%; }
