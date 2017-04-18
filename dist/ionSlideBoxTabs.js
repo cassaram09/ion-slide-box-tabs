@@ -15,17 +15,21 @@ function ionSlideBoxTabs(){
         '<div class="indicator-wrapper">',
           '<div id="slide-tab-indicator"></div>',
         '</div>',
-        '<div id="slide-box-content" ng-transclude on-drag-right="onGesture(\'right\')" on-drag-left="onGesture(\'left\')" on-release="snapToPosition()"></div>',
+        '<ion-content class="fixed-header">',
+          '<div id="slide-box-content" ng-transclude on-drag-right="onGesture(\'right\')" on-drag-left="onGesture(\'left\')" on-release="snapToPosition()"></div>',
+        '</ion-content',
       '</div>'
     ].join(''),
+    scope: {
+      slide: '@' //set active slide on load
+    },
     transclude: true,
     controller: function($scope, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicGesture) {
 
       $scope.tabs = []
       $scope.tabWidth = {"width": '0%'}
-      $scope.indicator = angular.element('#slide-tab-indicator')
-      $scope.transclude = angular.element('#slide-box-content')
-      $scope.activeSlide = 0;
+      $scope.transclude = angular.element('slide-box-content')
+      $scope.activeSlide = $scope.slide || 0;
 
       //set slider content box height
       $scope.transclude.css("height", '90%')
@@ -69,14 +73,25 @@ function ionSlideBoxTabs(){
 
       function moveIndicator(index) {
         var position = (index * 100) + "%"
-        $scope.indicator.css("transform", "translate("+ position + ",0%)")
+        $scope.indicator ? $scope.indicator.css("transform", "translate("+ position + ",0%)") : null
       }
 
       $scope.$on('TAB_ADDED', function(event, tab){
         $scope.tabs.push(tab)
         var width = 100 / $scope.tabs.length
         $scope.tabWidth.width = width + '%'
-        $scope.indicator.css('width', width +  "%")
+      })
+
+      $scope.$on('VIEW_LOADED', function() {
+        var width = 100 / $scope.tabs.length
+        $scope.tabWidth.width = width + '%'
+        angular.element('#slide-tab-indicator').css('width', "0%");
+        $timeout(function(){
+          $scope.indicator = angular.element('#slide-tab-indicator')
+          $scope.indicator.css('width', width + "%");
+          $scope.snapToPosition()
+        },0)
+       
       })
     
     }
@@ -97,3 +112,4 @@ function slideTabLabel(){
 
 ionSlideBoxTabsModule
   .directive('slideTabLabel', slideTabLabel)
+  

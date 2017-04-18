@@ -1,20 +1,24 @@
 .slide-tabs{
-  height: 100%;
   transition: height 1s linear;
+  height: 100%;
+  position: relative;
+  top: 60px;
 
   .indicator-wrapper {
     width: 100%;
     height: 2px;
+    background: #fff;
 
     #slide-tab-indicator {
       height: 100%;
+      width: 0%;
       background-color: #6FDAB3;
       position: relative;
       transform: translate(0%,0);
-      transition: transform 0.1s linear !important;
+      transition: width 0.3s, transform 0.1s linear !important;
     }
   }
-  
+
   .slide-tab-list{
     list-style: none;
     width: 100%;
@@ -24,8 +28,10 @@
 
     .label {
       display: inline-block;
-      padding: 15px 0px 12px;
       color: #555;
+      div{
+        padding: 15px 0px 12px;
+      }
     }
 
     .selected-tab {
@@ -33,12 +39,15 @@
     }
   }
 
+  .fixed-header{
+    top: 50px;
+  }
+
   #slide-box-content{
+    height: 90%;
     .slider{
       min-height: 100%;
     }
   }
 
 }
-
-

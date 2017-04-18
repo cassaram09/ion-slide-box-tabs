@@ -31,29 +31,26 @@ Add names to each tab using the *slide-tab-label="label"* attribute on each slid
 Add the *on-slide-changed="$emit('slideChanged')"* attribute to the *ion-slide-box* element. 
 
   ```html
-  <ion-content>
-
-    <ion-slide-box-tabs>
+    <ion-slide-box-tabs name='mySlider'>
 
       <ion-slide-box show-pager="false" on-slide-changed="$emit('slideChanged')">
 
-          <ion-slide slide-tab-label="One">
-            <h1>One</h1>
-          </ion-slide>
+        <ion-slide slide-tab-label="One">
+          <h1>One</h1>
+        </ion-slide>
 
-          <ion-slide slide-tab-label="Two">
-            <h1>Two</h1>
-          </ion-slide>
+        <ion-slide slide-tab-label="Two">
+          <h1>Two</h1>
+        </ion-slide>
 
-          <ion-slide slide-tab-label="Three">
-            <h1>Three</h1>
-          </ion-slide>
+        <ion-slide slide-tab-label="Three">
+          <h1>Three</h1>
+        </ion-slide>
 
       </ion-slide-box>
 
     </ion-slide-box-tabs>
 
-  </ion-content>
   ```
 
 ## API
