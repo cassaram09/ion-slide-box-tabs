@@ -17,7 +17,7 @@ function ionSlideBoxTabs(){
         '</div>',
         '<ion-content class="fixed-header">',
           '<div id="slide-box-content" ng-transclude on-drag-right="onGesture(\'right\')" on-drag-left="onGesture(\'left\')" on-release="snapToPosition()"></div>',
-        '</ion-content',
+        '</ion-content>',
       '</div>'
     ].join(''),
     scope: {
@@ -112,4 +112,3 @@ function slideTabLabel(){
 
 ionSlideBoxTabsModule
   .directive('slideTabLabel', slideTabLabel)
-  
