@@ -30,7 +30,7 @@ Add names to each tab using the *slide-tab-label="label"* attribute on each slid
 
 Add the *on-slide-changed="$emit('slideChanged')"* attribute to the *ion-slide-box* element. 
 
-The *ion-slide-box-tabs* directive has an *ion-content>* directive built in, so there's no need to wrap this directive in one.
+The *ion-slide-box-tabs* directive has an *ion-content* directive built in, so there's no need to wrap this directive in one.
 
   ```html
     <ion-slide-box-tabs name='mySlider'>
